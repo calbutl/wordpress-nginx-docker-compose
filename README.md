@@ -48,7 +48,7 @@ brew install nss # if you use Firefox
 
 #### For Docker and the CLI script
 
-Copy `.env-example` in the project root to `.env` and edit your preferences.
+Copy `.env.example` in the project root to `.env` and edit your preferences.
 
 Example:
 
@@ -136,7 +136,7 @@ server {
 
 ```
 
-3. Edit `./src/.env-example` and set
+3. Edit `./src/.env.example` and set
 
 ```
 WP_HOME='http://localhost'
