@@ -48,95 +48,95 @@ brew install nss # if you use Firefox
 
 #### For Docker and the CLI script
 
-Copy `.env-example` in the project root to `.env` and edit your preferences.
+	Copy `.env.example` in the project root to `.env` and edit your preferences.
 
-Example:
+	Example:
 
-```dotenv
-IP=127.0.0.1
-APP_NAME=myapp
-DOMAIN="myapp.local"
-DB_HOST=mysql
-DB_NAME=myapp
-DB_ROOT_PASSWORD=password
-DB_TABLE_PREFIX=wp_
-```
+	```dotenv
+	IP=127.0.0.1
+	APP_NAME=myapp
+	DOMAIN="myapp.local"
+	DB_HOST=mysql
+	DB_NAME=myapp
+	DB_ROOT_PASSWORD=password
+	DB_TABLE_PREFIX=wp_
+	```
 
-#### For WordPress
+	#### For WordPress
 
-Edit `./src/.env.example` to your needs. During the `composer create-project` command described below, an `./src/.env` will be created.
-</details>
+	Edit `./src/.env.example` to your needs. During the `composer create-project` command described below, an `./src/.env` will be created.
+	</details>
 
-<details>
- <summary>1. Use HTTPS with a custom domain</summary>
+	<details>
+	 <summary>1. Use HTTPS with a custom domain</summary>
 
-Create a SSL cert:
+	Create a SSL cert:
 
-```shell
-cd cli
-./create-cert.sh
-```
+	```shell
+	cd cli
+	./create-cert.sh
+	```
 
-> Note: mkcert needs to be installed.
+	> Note: mkcert needs to be installed.
 
-This script will create a locally-trusted development certificates. It requires no configuration.
+	This script will create a locally-trusted development certificates. It requires no configuration.
 
-### Windows
+	### Windows
 
-[Follow the instructions](https://github.com/FiloSottile/mkcert#windows)
+	[Follow the instructions](https://github.com/FiloSottile/mkcert#windows)
 
-### Linux
+	### Linux
 
-[Follow the instructions](https://github.com/FiloSottile/mkcert#linux)
+	[Follow the instructions](https://github.com/FiloSottile/mkcert#linux)
 
-</details>
+	</details>
 
-<details>
- <summary>2. Use a simple config</summary>
+	<details>
+	 <summary>2. Use a simple config</summary>
 
-1. Edit `nginx/default.conf.conf` to use this simpler config.
+	1. Edit `nginx/default.conf.conf` to use this simpler config.
 
-```shell
-server {
-    listen 80;
+	```shell
+	server {
+	    listen 80;
 
-    root /var/www/html/web;
-    index index.php;
+	    root /var/www/html/web;
+	    index index.php;
 
-    access_log /var/log/nginx/access.log;
-    error_log /var/log/nginx/error.log;
+	    access_log /var/log/nginx/access.log;
+	    error_log /var/log/nginx/error.log;
 
-    client_max_body_size 100M;
+	    client_max_body_size 100M;
 
-    location / {
-        try_files $uri $uri/ /index.php?$args;
-    }
+	    location / {
+		try_files $uri $uri/ /index.php?$args;
+	    }
 
-    location ~ \.php$ {
-        try_files $uri =404;
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass wordpress:9000;
-        fastcgi_index index.php;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_param PATH_INFO $fastcgi_path_info;
-    }
-}
+	    location ~ \.php$ {
+		try_files $uri =404;
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass wordpress:9000;
+		fastcgi_index index.php;
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+	    }
+	}
 
-```
+	```
 
-2. Edit the nginx service in `docker-compose.yml` to use port 80. 443 is not needed now.
+	2. Edit the nginx service in `docker-compose.yml` to use port 80. 443 is not needed now.
 
-```shell
-  nginx:
-    image: nginx:latest
-    container_name: ${APP_NAME}-nginx
-    ports:
-      - '80:80'
+	```shell
+	  nginx:
+	    image: nginx:latest
+	    container_name: ${APP_NAME}-nginx
+	    ports:
+	      - '80:80'
 
-```
+	```
 
-3. Edit `./src/.env-example` and set
+	3. Edit `./src/.env.example` and set
 
 ```
 WP_HOME='http://localhost'
