@@ -36,13 +36,19 @@
     "vlucas/phpdotenv": "^4.1.8",
     "oscarotero/env": "^2.1",
     "roots/bedrock-autoloader": "^1.0",
-    "roots/wordpress": "5.5.3",
+    "roots/wordpress": "5.6.2",
     "roots/wp-config": "1.0.0",
-    "roots/wp-password-bcrypt": "1.0.0"
+    "roots/wp-password-bcrypt": "1.0.0",
+    "wpackagist-theme/astra": "3.0.2",
+    "wpackagist-plugin/woocommerce": "5.0.*",
+    "wpackagist-plugin/elementor": "3.1.*",
+    "wpackagist-plugin/astra-sites": "2.6.1",
+    "wpackagist-plugin/astra-import-export": "1.0.4"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.5.6",
-    "roave/security-advisories": "dev-master"
+    "roave/security-advisories": "dev-master",
+    "wpackagist-plugin/query-monitor": "*"
   },
   "config": {
     "optimize-autoloader": true,
